@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 /**
  * Policy Mappings
  * (sails.config.policies)
@@ -18,5 +19,8 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
+  UserController: {
+    'checkAuthFunction': 'authCheck'
+  }
 
 };

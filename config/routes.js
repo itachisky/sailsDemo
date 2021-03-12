@@ -18,13 +18,12 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-
-  'GET /': { view: 'pages/signup' },
+ 
+  'POST /register': { controller: 'UserController', action: 'createUser' },
+  'GET /register': { view: 'pages/signup' },
   'GET /login': { view: 'pages/login' },
 
-
-
-  'POST /apiv1/signup': { controller: 'UserController', action: 'createUser' },
+  'GET /me': { controller: 'UserController', action: 'checkAuthFunction' },
   'POST /apiv1/login': { controller: 'UserController', action: 'loginUser' },
 
   /***************************************************************************

@@ -5,13 +5,13 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   
     createUser: async (req, res) => {
         const user = req.body;
-    
+        console.log(user)
         try {
             const result = await User.create(user).fetch();
             if(result.id) {
@@ -44,12 +44,22 @@ module.exports = {
                 const token = jwt.sign(userInfoForToken, jwtSecret, {
                     expiresIn
                   });
+                res.cookie('token',token)
                 res.json({"token":token})
             } else {
                 res.json({"error":"some error happended"})
             }
         } catch (err) {
             console.log(err);
+        }
+    },
+
+    checkAuthFunction: function(req,res,next) {
+        const user = req.user;
+        if(user) {
+            res.json({"message":"success"})
+        } else {
+            res.json({"message":"error"})
         }
     }
 };
